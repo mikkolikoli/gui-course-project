@@ -1,6 +1,7 @@
 // use possibly AppBar from MUI
 
-import { Stack, Link } from '@mui/material'
+import { Stack } from '@mui/material'
+import Link from 'next/link'
 import styled from 'styled-components';
 
 const Nav = styled.nav`
@@ -18,6 +19,11 @@ const NavStack = styled(Stack)`
 
 const NavItem = styled(Link)`
   color: black;
+  text-decoration: none;
+  &:hover {
+    color: #616161;
+    text-decoration: underline;
+  }
 `
 
 const LogOut = styled(NavItem)`
@@ -29,10 +35,10 @@ export default function Navbar() {
   return (
     <Nav>
       <NavStack direction="row" spacing={3}>
-        <NavItem underline='hover' href='/home'>Home</NavItem>
-        <NavItem underline='hover' href='/new'>New workout</NavItem>
-        <NavItem underline='hover' href='/view'>View workouts</NavItem>
-        <LogOut underline='hover' href='/logout'>Log out</LogOut>
+        <NavItem href='/home'>Home</NavItem>
+        <NavItem href='/new'>New workout</NavItem>
+        <NavItem href='/view'>View workouts</NavItem>
+        <LogOut href='/logout'>Log out</LogOut>
       </NavStack>
     </Nav>
   )
