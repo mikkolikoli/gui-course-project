@@ -1,5 +1,6 @@
+import { redirect } from "next/navigation";
+
 export default function Home() {
-  return (
-    <main></main>
-  )
+  // check for auth and redirect to login if not
+  redirect("/home");
 }
