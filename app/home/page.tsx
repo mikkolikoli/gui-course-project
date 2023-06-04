@@ -6,7 +6,7 @@ import calendar from "@/src/components/calendar"
 
 export default function Home() {
   return (
-    <main>
-    </main>
+    <div>
+    </div>
   )
 }
