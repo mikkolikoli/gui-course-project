@@ -28,10 +28,10 @@ const LogOut = styled(NavItem)`
 export default function Navbar() {
   return (
     <Nav>
-      <NavStack direction="row" spacing={2}>
+      <NavStack direction="row" spacing={3}>
         <NavItem underline='hover' href='/home'>Home</NavItem>
-        <NavItem underline='hover' href='/new'>New workouts</NavItem>
-        <NavItem underline='hover' href='/view'>View workout</NavItem>
+        <NavItem underline='hover' href='/new'>New workout</NavItem>
+        <NavItem underline='hover' href='/view'>View workouts</NavItem>
         <LogOut underline='hover' href='/logout'>Log out</LogOut>
       </NavStack>
     </Nav>
