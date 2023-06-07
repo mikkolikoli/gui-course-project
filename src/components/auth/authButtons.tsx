@@ -1,10 +1,11 @@
-import { auth } from "@/src/firebaseConfig";
+import { auth } from "@/src/firebase/firebaseConfig";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signOut, signInWithPopup } from "firebase/auth";
 import { redirect } from "next/navigation";
 
 interface props {
     email: string,
-    password:string
+    password: string,
+    isActive?: boolean
 }
 
 export const LogInButton = ({ email, password }: props) => {
@@ -26,10 +27,14 @@ export const LogInButton = ({ email, password }: props) => {
     )
 }
 
-export const SignUpButton = ({ email, password }: props) => {
+export const SignUpButton = ({ email, password, isActive }: props) => {
 
     const signUp = (e: any) => {
         e.preventDefault();
+
+        if (!isActive) {
+            return;
+        }
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -60,7 +65,7 @@ export const SignInWithGoogleButton = () => {
             })
     }
     return (
-        <div></div>
+        <button onClick={signInButtonClicked}>Sign in with google</button>
     )
 }
 
