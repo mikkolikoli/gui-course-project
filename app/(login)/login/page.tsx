@@ -1,8 +1,10 @@
-import { LogInButton, SignInWithGoogleButton } from "@/src/components/auth/authButtons"
+"use client"
+import { redirect } from "next/navigation"
 import { useState } from "react"
 import Link from "next/link"
+import signIn from "@/src/firebase/auth/signin"
 
-export default function Login() {
+export default async function Login() {
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
 
@@ -13,22 +15,28 @@ export default function Login() {
         setPassword(e.target.value)
     }
 
+    const handleSubmit = async (e:any) => {
+        e.preventDefault();
+
+        const { result, error } = await signIn(email, password)
+        redirect('/')
+    }
+
     return (
         <main>
             <h1>Login</h1>
 
-            <form>
-                <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} />
-                <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} />
+            <form name="Login" onSubmit={handleSubmit}>
+                <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} required />
+                <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} required />
 
-                <SignInWithGoogleButton />
-
-                <LogInButton email={email} password={password} />
-                <p>or</p>
-                <button>
-                    <Link href="/signup">Sign up</Link>
-                </button>
+                <button type="submit">Log in</button>
             </form>
+            <p>or</p>
+            <button>
+                <Link href="/signup">Sign up</Link>
+            </button>
+            
         </main>
     )
 }
