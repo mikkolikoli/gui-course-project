@@ -1,30 +1,24 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+"use client"
+import "../globals.css"
+import { useContext } from "react"
+import { AuthContext } from "@/src/authContext"
+import { useRouter, redirect } from "next/navigation"
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../src/firebaseConfig'
-import { redirect } from 'next/navigation'
+export default function MainLayout({children}:{children: React.ReactNode}) {
+  const user = useContext(AuthContext)
+  // const router = useRouter()
 
-const inter = Inter({ subsets: ['latin'] })
+  console.log(!user)
 
-export const metadata = {
-  title: 'Workout app',
-  description: 'An app to track your workouts',
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const [user, loading, error] = useAuthState(auth);
-
-  if (!user) {
-    redirect('/login')
+  // redirecting user to login page if not logged in
+  if (user) {
+    // router.push('/login')
+    redirect("/login")
   }
+
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <main>
+      {children}
+    </main>
   )
 }

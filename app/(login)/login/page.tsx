@@ -1,25 +1,29 @@
 "use client"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import Link from "next/link"
 import signIn from "@/src/firebase/auth/signin"
 
-export default async function Login() {
+export default function Login() {
+    // const router = useRouter()
+
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
 
-    const handleEmailChange = (e: any) => {
-        setEmail(e.target.value)
-    }
-    const handlePasswordChange = (e: any) => {
-        setPassword(e.target.value)
-    }
+    const handleEmailChange = (e: any) => setEmail(e.target.value)
+    const handlePasswordChange = (e: any) => setPassword(e.target.value)
 
     const handleSubmit = async (e:any) => {
         e.preventDefault();
 
-        const { result, error } = await signIn(email, password)
-        redirect('/')
+        alert("Successfully signed in")
+        // router.push("/")
+        // const { result, error } = await signIn(email, password)
+        /*
+        if (!error) {
+            router.push("/")
+        }
+        */
     }
 
     return (

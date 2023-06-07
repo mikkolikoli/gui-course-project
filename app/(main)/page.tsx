@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div>Tyhhmää</div>
+    <div>Main page</div>
   )
 }
