@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-  },
+  }, /*
   async redirects() {
     return [
       {
@@ -12,6 +12,7 @@ const nextConfig = {
       }
     ]
   }
+  */
 }
 
 module.exports = nextConfig
