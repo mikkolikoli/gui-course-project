@@ -1,6 +1,6 @@
 // use possibly AppBar from MUI
 
-import { Stack } from '@mui/material'
+import { Stack, Button } from '@mui/material'
 import Link from 'next/link'
 import styled from 'styled-components';
 
@@ -26,7 +26,7 @@ const NavItem = styled(Link)`
   }
 `
 
-const LogOut = styled(NavItem)`
+const LogOut = styled(Button)`
   position: fixed;
   right: 10px;
 `
@@ -34,11 +34,12 @@ const LogOut = styled(NavItem)`
 export default function Navbar() {
   return (
     <Nav>
-      <NavStack direction="row" spacing={3}>
-        <NavItem href='/home'>Home</NavItem>
-        <NavItem href='/new'>New workout</NavItem>
-        <NavItem href='/view'>View workouts</NavItem>
-        <LogOut href='/logout'>Log out</LogOut>
+      <NavStack direction="row" spacing={3} alignItems="center" >
+        <NavItem href='/'>Home</NavItem>
+        <NavItem href='/new_workout'>New workout</NavItem>
+        <NavItem href='/workouts'>View workouts</NavItem>
+        <NavItem href='/programmes'>Manage programmes</NavItem>
+        <LogOut href="/">Log out</LogOut>
       </NavStack>
     </Nav>
   )
