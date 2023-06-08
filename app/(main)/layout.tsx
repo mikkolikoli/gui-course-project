@@ -11,7 +11,7 @@ export default function MainLayout({children}:{children: React.ReactNode}) {
   console.log(!user)
 
   // redirecting user to login page if not logged in
-  if (user) {
+  if (!user) {
     // router.push('/login')
     redirect("/login")
   }
