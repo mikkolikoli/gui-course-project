@@ -2,23 +2,30 @@
 import "../globals.css"
 import { useContext } from "react"
 import { AuthContext } from "@/src/authContext"
-import { useRouter, redirect } from "next/navigation"
+import { redirect } from "next/navigation"
+
+import Navbar from "@/src/components/navbar"
+import { Container } from "@mui/material"
 
 export default function MainLayout({children}:{children: React.ReactNode}) {
   const user = useContext(AuthContext)
   // const router = useRouter()
 
-  console.log(!user)
-
   // redirecting user to login page if not logged in
-  if (user) {
+  if (!user) {
     // router.push('/login')
     redirect("/login")
   }
 
   return (
-    <main>
-      {children}
-    </main>
+    <div>
+      <Navbar />
+
+      <Container 
+        component="main"
+        maxWidth="sm">
+        {children}
+      </Container>
+    </div>
   )
 }
