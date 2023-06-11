@@ -2,7 +2,7 @@
 
 import Calendar from "@/src/components/calendar"
 import NextWorkout from "@/src/components/nextWorkout"
-import { Stack } from "@mui/material"
+import { Stack, Grid } from "@mui/material"
 
 // dev stuff
 import { devExcercises, buttonClicked } from "@/src/dev/test" 
@@ -12,13 +12,15 @@ export default function Home() {
   const date = new Date()
 
   return (
-    <Stack direction="row">
-      <Calendar 
-        day={day} 
-        date={date} 
-        excercises={devExcercises} 
-        onAddButtonClicked={buttonClicked} 
-        onNextButtonClicked={buttonClicked} />
+    <Stack
+      component="section" 
+      spacing={2}
+      direction="row"
+      height="80vh"
+      mt={4}
+    >
+      <Calendar />
+      <NextWorkout />
     </Stack>
   )
 }

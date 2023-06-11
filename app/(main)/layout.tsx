@@ -5,14 +5,8 @@ import { AuthContext } from "@/src/authContext"
 import { redirect } from "next/navigation"
 
 import Navbar from "@/src/components/navbar"
-import { Container, Box } from "@mui/material"
+import { Container, Box, Grid } from "@mui/material"
 import styled from "styled-components"
-
-const DarkBG = styled.div`
-  background-color: black;
-  color: white;
-  height: 100vh;
-`
 
 export default function MainLayout({children}:{children: React.ReactNode}) {
   const user = useContext(AuthContext)
@@ -25,17 +19,17 @@ export default function MainLayout({children}:{children: React.ReactNode}) {
   }
 
   return (
-    <DarkBG>
+    <div>
       <Navbar />
 
-      <Box component="main" 
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      minHeight="100vh"
+      <Box
+        component="main"
+        justifyContent="center"
+        alignItems="center"
+        display="flex"
       >
         {children}
       </Box>
-    </DarkBG>
+    </div>
   )
 }

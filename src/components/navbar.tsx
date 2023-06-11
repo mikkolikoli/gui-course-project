@@ -9,7 +9,7 @@ const Nav = styled.nav`
     justify-content: space-between;
     align-items: center;
     height: 75px;
-    width: 100%;
+    width: 100vw;
     background-color: lightgray;
   `
 
