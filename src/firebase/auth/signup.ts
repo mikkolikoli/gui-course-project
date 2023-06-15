@@ -6,7 +6,6 @@ export default async function signUp(email: string, password: string) {
     let result,
         error;
     
-    /*
     try {
         result = await createUserWithEmailAndPassword(auth, email, password);
         
@@ -20,7 +19,6 @@ export default async function signUp(email: string, password: string) {
     catch (e) {
         error = e;
     }
-    */
 
     return { result, error };
 }
