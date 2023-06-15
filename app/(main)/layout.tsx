@@ -1,25 +1,24 @@
 "use client"
 import "../globals.css"
-import { useContext } from "react"
 import { AuthContext } from "@/src/authContext"
 import { redirect } from "next/navigation"
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import Navbar from "@/src/components/navbar"
-import { Container, Box, Grid } from "@mui/material"
-import styled from "styled-components"
+import { Box } from "@mui/material"
+import { auth } from "@/src/firebase/firebaseConfig"
 
 export default function MainLayout({children}:{children: React.ReactNode}) {
-  const user = useContext(AuthContext)
-  // const router = useRouter()
+
+  const [user] = useAuthState(auth)
 
   // redirecting user to login page if not logged in
   if (!user) {
-    // router.push('/login')
     redirect("/login")
   }
 
   return (
-    <div>
+    <AuthContext.Provider value={{user: user}}>
       <Navbar />
 
       <Box
@@ -30,6 +29,6 @@ export default function MainLayout({children}:{children: React.ReactNode}) {
       >
         {children}
       </Box>
-    </div>
+    </AuthContext.Provider>
   )
 }

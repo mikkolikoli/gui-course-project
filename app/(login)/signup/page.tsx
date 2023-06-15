@@ -4,12 +4,19 @@ import { useState } from "react"
 import Link from "next/link"
 import { Stack, TextField, Button } from "@mui/material"
 
+import signUp from "@/src/firebase/auth/signup"
+import SuccessSnackBar from "@/src/components/successSnackBar"
+import { useRouter } from "next/navigation"
+
 export default function Page() {
+    const router = useRouter();
+
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
     const [ repeatPassword, setRepeatPassword ] = useState("")
-    const [ error, setError ] = useState(false)
+    const [ uiError, setUiError ] = useState(false)
     const [ errortext, setErrortext] = useState("")
+    const [ snackbarOpen, setSnackbarOpen ] = useState(false);
 
     const handleEmailChange = (e: any) => {
         setEmail(e.target.value)
@@ -22,23 +29,34 @@ export default function Page() {
         setRepeatPassword(e.target.value)
     }
 
-    const signUpFormSubmitted = (e: any) => {}
-    /*
-    
-    
-    <form onSubmit={signUp}>
-                <input type="email" name="email" id="email" value={email} />
-                <input type="password" name="password" id="password" value={password} />
-                <input type="password" name="repeat" id="repeat" value={password} />
+    const signUpFormSubmitted = async (e: any) => {
+        e.preventDefault()
 
-                <SignInWithGoogleButton />
+        if (password !== repeatPassword) {
+            setUiError(true)
+            setErrortext("Passwords don't match")
+        }
+        else {
+            setUiError(false)
+            setErrortext("")
+        }
 
-                {valid ? <ErrorText text={errortext} /> : null}
-                <input type="submit" value="Sign up" />
-            </form>
+        if (!uiError) {
+            const { result, error } = await signUp(email, password)
 
-            <p>Already have an account? <Link href="/login">Login instead</Link></p>
-            */
+            if (error) {
+                setUiError(true)
+                setErrortext("Email already in use")
+            }
+            else {
+                setSnackbarOpen(true)
+                setTimeout(() => {
+                    setSnackbarOpen(false)
+                    router.push("/login"); // redirect to "/login" after showing the snackbar
+                }, 1000);
+            }
+        }
+    }
 
     return (
         <Stack 
@@ -66,7 +84,7 @@ export default function Page() {
                     autoComplete="username" />
                 <TextField
                     required
-                    error={error}
+                    error={uiError}
                     helperText={errortext}
                     type="password"
                     label="Password"
@@ -75,7 +93,7 @@ export default function Page() {
                     autoComplete="new-password" />
                 <TextField
                     required
-                    error={error}
+                    error={uiError}
                     helperText={errortext}
                     type="password"
                     label="Repeat password"
@@ -89,6 +107,8 @@ export default function Page() {
                 >
                     Sign up
                 </Button>
+
+                {snackbarOpen ? <SuccessSnackBar isOpen={true} text="Successfully signed up" />: null}
             </Stack>
             <p>Already have an account? <Link href="/login">Login instead</Link></p>
         </Stack>

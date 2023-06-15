@@ -3,6 +3,7 @@
 import { Stack, Button } from '@mui/material'
 import Link from 'next/link'
 import styled from 'styled-components';
+import { signOut } from 'firebase/auth';
 
 const Nav = styled.nav`
     display: flex;
@@ -39,7 +40,7 @@ export default function Navbar() {
         <NavItem href='/new_workout'>New workout</NavItem>
         <NavItem href='/workouts'>View workouts</NavItem>
         <NavItem href='/programmes'>Manage programmes</NavItem>
-        <LogOut href="/">Log out</LogOut>
+        <LogOut onClick={() => signOut} href='/login'>Log out</LogOut>
       </NavStack>
     </Nav>
   )

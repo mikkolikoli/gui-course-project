@@ -1,33 +1,40 @@
 "use client"
-import { useRouter } from "next/router"
 import { useState } from "react"
 import Link from "next/link"
 import signIn from "@/src/firebase/auth/signin"
 
 import { Stack, TextField, Button } from "@mui/material"
+import { redirect, useRouter } from "next/navigation"
+import SuccessSnackBar from "@/src/components/successSnackBar"
 
 export default function Login() {
-    // const router = useRouter()
+    const router = useRouter()
 
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
-    const [ error, setError ] = useState(false)
+    const [ uierror, setError ] = useState(false)
     const [ errorText, setErrorText ] = useState("")
+    const [ success, setSuccess ] = useState(false)
 
     const handleEmailChange = (e: any) => setEmail(e.target.value)
     const handlePasswordChange = (e: any) => setPassword(e.target.value)
 
     const handleSubmit = async (e:any) => {
         e.preventDefault();
+        
+        const { result, error } = await signIn(email, password)
 
-        alert("Successfully signed in")
-        // router.push("/")
-        // const { result, error } = await signIn(email, password)
-        /*
         if (!error) {
-            router.push("/")
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+                router.push("/")
+            }, 1000)
         }
-        */
+        else {
+            setError(true)
+            setErrorText("Incorrect email or password!")
+        }
     }
 
     return (
@@ -48,14 +55,14 @@ export default function Login() {
                 onSubmit={handleSubmit}
             >
                 <TextField
-                    error={error}
+                    error={uierror}
                     type="email"
                     label="E-mail"
                     value={email}
                     onChange={handleEmailChange}
                     helperText={errorText}  />
                 <TextField
-                    error={error}
+                    error={uierror}
                     type="password"
                     label="Password"
                     value={password}
@@ -72,6 +79,8 @@ export default function Login() {
             </Stack>
 
             <p>or <Link href="/signup">sign up</Link></p>
+
+            {success ? <SuccessSnackBar isOpen={true} text="Successfully signed up" />: null}
         </Stack>
     )
 }
