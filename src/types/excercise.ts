@@ -19,6 +19,17 @@ export type ExcerciseSet = {
 export type Workout = {
     id: number,
     name: string,
-    time: Date
+    time?: Date
     sets: ExcerciseSet[],
+}
+
+export type Programme = {
+    id: number,
+    name: string,
+    workouts: [
+        {
+            workout: Workout,
+            dates: Date[]
+        }
+    ]
 }

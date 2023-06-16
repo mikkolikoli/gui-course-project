@@ -4,12 +4,12 @@ import Calendar from "@/src/components/calendar"
 import NextWorkout from "@/src/components/nextWorkout"
 import { Stack, Grid } from "@mui/material"
 
+import { Workout } from "@/src/types/excercise"
+
 // dev stuff
-import { devExcercises, buttonClicked } from "@/src/dev/test" 
+import { devWorkout, buttonClicked } from "@/src/dev/test" 
 
 export default function Home() {
-  const day = "Naatuntai"
-  const date = new Date()
 
   return (
     <Stack
@@ -20,7 +20,7 @@ export default function Home() {
       mt={4}
     >
       <Calendar />
-      <NextWorkout />
+      <NextWorkout workout={devWorkout} />
     </Stack>
   )
 }

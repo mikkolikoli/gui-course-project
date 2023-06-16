@@ -5,7 +5,7 @@ interface NextWorkoutProps {
     workout: Workout
 }
 
-export default function NextWorkout() {
+export default function NextWorkout({ workout }: NextWorkoutProps) {
     return (
         <Stack
             border={`${1}px solid`}

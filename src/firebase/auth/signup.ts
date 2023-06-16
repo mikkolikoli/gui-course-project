@@ -11,10 +11,8 @@ export default async function signUp(email: string, password: string) {
         
         // Create document in Firestore in 'users' collection
         await setDoc(doc(db, "users", result.user.uid), {
-            email: email,
-            // Add other details you want to keep
+            email: email
         });
-        console.log("user added to db")
     }
     catch (e) {
         error = e;
