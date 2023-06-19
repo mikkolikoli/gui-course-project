@@ -1,5 +1,6 @@
-import { Stack, List, ListItem, ListItemText, Tooltip } from "@mui/material"
+import { Stack, List, Tooltip } from "@mui/material"
 import { Workout } from "../types/excercise"
+import Set from "./set"
 
 interface NextWorkoutProps {
     workout: Workout
@@ -15,8 +16,16 @@ export default function NextWorkout({ workout }: NextWorkoutProps) {
             width="25vw"
             m={2}
             ml={2}
+            p={2}
         >
             <h2>Next workout</h2>
+
+            <List>
+                {
+                    workout.sets.map((set) => 
+                    <Set key={set.id} excerciseSet={set} />
+                )}
+            </List>
         </Stack>
     )
 }

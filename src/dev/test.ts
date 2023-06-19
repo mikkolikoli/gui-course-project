@@ -1,7 +1,12 @@
 export const devExcercises = [
     {
         id: 0,
-        name: "Pruut"
+        name: "Placeholder-excercise 1"
+    },
+    {
+        id: 1,
+        name: "Placeholder-excercise 1",
+        reps: 4
     }
 ]
 
@@ -16,7 +21,7 @@ export const devWorkoutSets = [
 
 export const devWorkout = {
     id: 0,
-    name: "Naatuilu",
+    name: "Placeholder Workout",
     sets: devWorkoutSets
 }
 

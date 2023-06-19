@@ -1,15 +1,12 @@
 "use client"
 import styled from "styled-components"
 import { Divider, Stack, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material"
-import { devExcercises } from "../dev/test"
+import { devExcercises, devWorkout } from "../dev/test"
 import { useState } from "react"
 
 export default function Calendar() {
   const placeholder = {
-    day: "Naatuntai",
-    excercises: devExcercises,
-    onNextButtonClicked: () => {},
-    onPreviousButtonClicked: () => {},
+    workouts: [devWorkout],
     onAddButtonClicked: () => {}
   }
 
@@ -19,6 +16,16 @@ export default function Calendar() {
 
   const onDayChange = (event: SelectChangeEvent) => {
     setSelectedDay(event.target.value as string)
+  }
+
+  const onPreviousButtonClicked = (event: any) => {
+    const currentIndex = days.findIndex((day: string) => day === selectedDay)
+    setSelectedDay(currentIndex > 0 ? days[currentIndex - 1]: days[6])
+  }
+
+  const onNextButtonClicked = (event: any) => {
+    const currentIndex = days.findIndex((day: string) => day === selectedDay)
+    setSelectedDay(currentIndex < 6 ? days[currentIndex + 1]: days[0])
   }
 
   return (
@@ -33,7 +40,7 @@ export default function Calendar() {
         bgcolor="#3c3c3c"
         color="white"
       >
-        <Button onClick={placeholder.onPreviousButtonClicked}>{'<'}</Button>
+        <Button onClick={onPreviousButtonClicked}>{'<'}</Button>
 
         <FormControl fullWidth>
           <Select
@@ -47,7 +54,7 @@ export default function Calendar() {
           </Select>
         </FormControl>
 
-        <Button onClick={placeholder.onNextButtonClicked}>{'>'}</Button>
+        <Button onClick={onNextButtonClicked}>{'>'}</Button>
       </Stack>
       <Stack
         component="section"
@@ -57,8 +64,8 @@ export default function Calendar() {
         
         padding={1}
       >
-        {placeholder.excercises.map((excercise) => 
-          <CalendarComponent key={excercise.id} excercise={excercise.name} />
+        {placeholder.workouts.map((workout) => 
+          <CalendarComponent key={workout.id} excercise={workout.name} />
         )}
         <Button variant="contained" onClick={placeholder.onAddButtonClicked}>Add excercise</Button>
       </Stack>
