@@ -25,4 +25,5 @@ There will also be a possibility to have a HIIT timer that shows you the current
 ## Demo
 
 The demo can be found on https://cgui.mikkorajakorpi.fi/
+
 The project is hosted on Vercel
