@@ -7,12 +7,12 @@ export default async function signUp(email: string, password: string) {
         error;
     
     try {
-        result = await createUserWithEmailAndPassword(auth, email, password);
+        // result = await createUserWithEmailAndPassword(auth, email, password);
         
         // Create document in Firestore in 'users' collection
-        await setDoc(doc(db, "users", result.user.uid), {
+        /* await setDoc(doc(db, "users", result.user.uid), {
             email: email
-        });
+        }); */
     }
     catch (e) {
         error = e;
