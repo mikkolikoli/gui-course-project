@@ -9,7 +9,16 @@ export default function LoginLayout({ children }: { children: React.ReactNode}) 
       alignItems="center"
       minHeight="100vh"
     >
-      {children}
+      <Box
+        bgcolor="lightgray"
+        color="black"
+      >
+        <Box
+          mx={8}
+          my={4}>
+          {children}
+        </Box>
+      </Box>
     </Box>
   )
 }
