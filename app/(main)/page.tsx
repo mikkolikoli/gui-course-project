@@ -4,7 +4,8 @@ import Calendar from "@/src/components/calendar"
 import NextWorkout from "@/src/components/nextWorkout"
 import { Stack, Grid } from "@mui/material"
 
-import { Workout } from "@/src/types/excercise"
+import { db } from "@/src/firebase/firebaseConfig"
+import { doc } from "firebase/firestore"
 
 // dev stuff
 import { devWorkout, buttonClicked } from "@/src/dev/test" 
