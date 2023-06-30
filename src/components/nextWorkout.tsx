@@ -1,5 +1,5 @@
 import { Stack, List, Tooltip } from "@mui/material"
-import { Workout } from "../types/excercise"
+import { Workout } from "../firebase/firestore/objects"
 import Set from "./set"
 
 interface NextWorkoutProps {
@@ -20,9 +20,10 @@ export default function NextWorkout({ workout }: NextWorkoutProps) {
         >
             <h2>Next workout</h2>
 
+            <h3>{workout.name}</h3>
+
             <List>
-                {
-                    workout.sets.map((set) => 
+                { workout.sets.map((set) => 
                     <Set key={set.id} excerciseSet={set} />
                 )}
             </List>

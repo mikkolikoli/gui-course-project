@@ -18,7 +18,8 @@ export class Duration {
     }
   }
 
-  getTotalSeconds (): number {
+  getTotalSeconds () {
     return this.hours * 3600 + this.minutes * 60 + this.seconds
   }
+  
 }

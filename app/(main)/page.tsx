@@ -8,7 +8,7 @@ import { db } from "@/src/firebase/firebaseConfig"
 import { doc } from "firebase/firestore"
 
 // dev stuff
-import { devWorkout, buttonClicked } from "@/src/dev/test" 
+import { workout } from "@/src/dev/test" 
 
 export default function Home() {
 
@@ -21,7 +21,7 @@ export default function Home() {
       mt={4}
     >
       <Calendar />
-      <NextWorkout workout={devWorkout} />
+      <NextWorkout workout={workout} />
     </Stack>
   )
 }
