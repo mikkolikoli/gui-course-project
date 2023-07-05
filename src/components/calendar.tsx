@@ -2,9 +2,17 @@
 import styled from "styled-components"
 import { Divider, Stack, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material"
 import { devExcercises, devWorkout } from "../dev/test"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { doc, getDoc, setDoc } from "firebase/firestore"
+import { AuthContext } from "../authContext"
+import { db } from "../firebase/firebaseConfig"
+import { Programme } from "../firebase/firestore/objects"
 
-export default function Calendar() {
+interface Props {
+  programme: Programme | null | undefined
+}
+
+export default function Calendar({ programme }: Props) {
   const placeholder = {
     workouts: [devWorkout],
     onAddButtonClicked: () => {}
