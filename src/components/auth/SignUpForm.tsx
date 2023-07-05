@@ -26,6 +26,7 @@ export default function SignUpForm({ onSuccess }: Props) {
     }
 
     if (!uiError) {
+      /*
       const { result, error } = await signUp(email, password)
 
       if (error) {
@@ -36,6 +37,7 @@ export default function SignUpForm({ onSuccess }: Props) {
         setUiError(false)
         onSuccess()
       }
+      */
     }
   }
 
