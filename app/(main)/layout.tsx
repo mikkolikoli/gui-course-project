@@ -12,11 +12,11 @@ export default function MainLayout({children}:{children: React.ReactNode}) {
 
   const [user] = useAuthState(auth)
   // redirecting user to login page if not logged in
-  /*
+  
   if (!user) {
     redirect("/login")
   }
-  */
+  
 
   return (
     <AuthContext.Provider value={{user: user}}>
