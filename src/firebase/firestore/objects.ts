@@ -124,3 +124,33 @@ export const ExcerciseConverter = {
     return new Excercise(data.id, data.name, data.reps, data.intensity, data.weight, data.length)
   }
 }
+
+// ----------------------------------------------------------------------------------------------
+
+export class User {
+  id: string
+  name: string
+  email: string
+  programmes: Programme[]
+  activeProgramme?: number
+
+  constructor(id: string, name: string, email: string, programmes: Programme[], activeProgramme?: number) {
+    this.id = id
+    this.name = name
+    this.email = email
+    this.programmes = programmes
+    this.activeProgramme = activeProgramme
+  }
+}
+
+export const UserConverter = {
+  toFirestore: function (user: User) {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      programmes: user.programmes,
+      activeProgramme: user.activeProgramme
+    }
+  }
+}
