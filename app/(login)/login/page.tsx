@@ -6,6 +6,7 @@ import signIn from "@/src/firebase/auth/signin"
 import { Stack, TextField, Button } from "@mui/material"
 import { redirect, useRouter } from "next/navigation"
 import SuccessSnackBar from "@/src/components/successSnackBar"
+import LoginForm from "@/src/components/LoginForm"
 
 export default function Login() {
     const router = useRouter()
@@ -37,6 +38,14 @@ export default function Login() {
         }
     }
 
+    const handleSuccess = () => {
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+            router.push("/")
+        }, 1000)
+    }
+
     return (
         <Stack 
             component="section" 
@@ -46,6 +55,7 @@ export default function Login() {
             spacing={2}
         >
             <h1>Login</h1>
+            {/* 
             <Stack 
                 component="form" 
                 direction="column" 
@@ -77,6 +87,9 @@ export default function Login() {
                     Login
                 </Button>
             </Stack>
+            */}
+
+            <LoginForm onSuccess={handleSuccess} />
 
             <p>or <Link href="/signup">sign up</Link></p>
 

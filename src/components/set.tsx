@@ -6,23 +6,6 @@ interface Props {
 }
 
 export default function Set({excerciseSet}: Props) {
-  /*
-  return (
-    <Box>
-      <Box bgcolor='background.paper' p={1}>
-      <List>
-        {
-          excerciseSet.excercises.map((excercise) => 
-          <ListItemText key={excercise.id} primary={excercise.reps ? excercise.name + " x" + excercise.reps: excercise.name} />
-        )}
-      </List>
-      </Box>
-      <Typography>x{excerciseSet.repetitions}</Typography>
-      {excerciseSet.rest ? <Typography>Rest: {excerciseSet.rest.getTotalSeconds()}s</Typography>: null}
-    </Box>
-  )
-  */
-
   return (
     <Stack justifyContent="center" spacing={1}>
       <Stack direction="row" spacing={2} alignItems="center">
