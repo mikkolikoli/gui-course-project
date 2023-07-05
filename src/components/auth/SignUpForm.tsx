@@ -1,6 +1,6 @@
 import { Stack, TextField, Button } from "@mui/material"
 import { useState, FormEvent } from "react"
-import signUp from "../firebase/auth/signup"
+import signUp from "../../firebase/auth/signup"
 
 interface Props {
   onSuccess: () => void

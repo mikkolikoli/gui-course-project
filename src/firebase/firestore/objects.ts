@@ -128,15 +128,11 @@ export const ExcerciseConverter = {
 // ----------------------------------------------------------------------------------------------
 
 export class User {
-  id: string
-  name: string
   email: string
-  programmes: Programme[]
+  programmes?: Programme[]
   activeProgramme?: number
 
-  constructor(id: string, name: string, email: string, programmes: Programme[], activeProgramme?: number) {
-    this.id = id
-    this.name = name
+  constructor( email: string, programmes?: Programme[], activeProgramme?: number) {
     this.email = email
     this.programmes = programmes
     this.activeProgramme = activeProgramme
@@ -146,11 +142,13 @@ export class User {
 export const UserConverter = {
   toFirestore: function (user: User) {
     return {
-      id: user.id,
-      name: user.name,
       email: user.email,
       programmes: user.programmes,
       activeProgramme: user.activeProgramme
     }
+  },
+  fromFirestore: function (snapshot: any, options: any) {
+    const data = snapshot.data(options)
+    return new User(data.email, data.programmes, data.activeProgramme)
   }
 }

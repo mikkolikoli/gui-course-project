@@ -3,10 +3,15 @@ import { Workout } from "../firebase/firestore/objects"
 import Set from "./set"
 
 interface NextWorkoutProps {
-    workout: Workout
+    workout: Workout | null | undefined
 }
 
 export default function NextWorkout({ workout }: NextWorkoutProps) {
+    if ( !workout ) {
+        return (
+            <p>No workout</p>
+        )
+    }
     return (
         <Stack
             border={`${1}px solid`}

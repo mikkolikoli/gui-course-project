@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Stack } from "@mui/material"
 import SuccessSnackBar from "@/src/components/successSnackBar"
 import { useRouter } from "next/navigation"
-import SignUpForm from "@/src/components/SignUpForm"
+import SignUpForm from "@/src/components/auth/SignUpForm"
 
 export default function Page() {
     const router = useRouter();
