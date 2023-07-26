@@ -141,10 +141,23 @@ export class User {
 
 export const UserConverter = {
   toFirestore: function (user: User) {
-    return {
-      email: user.email,
-      programmes: user.programmes,
-      activeProgramme: user.activeProgramme
+    if (user.programmes && user.activeProgramme) {
+      return {
+        email: user.email,
+        programmes: user.programmes,
+        activeProgramme: user.activeProgramme
+      }
+    }
+    else if (user.programmes) {
+      return {
+        email: user.email,
+        programmes: user.programmes
+      }
+    }
+    else {
+      return {
+        email: user.email
+      }
     }
   },
   fromFirestore: function (snapshot: any, options: any) {
