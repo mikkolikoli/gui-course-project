@@ -2,7 +2,7 @@
 
 import { useState, createContext, useContext } from "react";
 import { AuthContext } from "@/src/authContext";
-import { Stack, TextField, Button, Typography, Select, MenuItem } from "@mui/material";
+import { Stack, TextField, Button, Typography, Select, MenuItem, Divider } from "@mui/material";
 
 import DurationForm from "./DurationForm";
 
@@ -34,6 +34,7 @@ export default function NewWorkoutForm() {
       bgcolor="gray"
       spacing={2}
       justifyContent="flex-start"
+      p={3}
     >
       <Stack direction="row"
         spacing={2}
@@ -71,6 +72,8 @@ export default function NewWorkoutForm() {
           <MenuItem value="cardio">Cardio</MenuItem>
         </Select>
       </Stack>
+
+      <Divider />
 
       <SetsContext.Provider value={{sets, setSets}}>
         <NewSet type={type} />
