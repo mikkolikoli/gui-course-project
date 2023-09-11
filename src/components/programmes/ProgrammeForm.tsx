@@ -7,11 +7,12 @@ import { AuthContext } from "@/src/authContext";
 
 import { Programme, ProgrammeConverter, User, UserConverter, Workout } from "@/src/firebase/firestore/objects";
 import { db } from "@/src/firebase/firebaseConfig"
-import { collection, doc, getDoc, setDoc } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore"
 
 export default function ProgrammeForm() {
-  const [programme, setProgramme] = useState(null as unknown as Programme)
-  const [programmes, setProgrammes] = useState([] as unknown as Programme[])
+  const [programme, setProgramme] = useState<Programme>(null as unknown as Programme)
+  const [programmes, setProgrammes] = useState<Programme[]>([])
+  const [programmeId, setProgrammeId] = useState(0)
   const [newProgrammeName, setNewProgrammeName] = useState('')
   const [showCalendar, setShowCalendar] = useState(false)
   const [error, setError] = useState(false)
@@ -38,6 +39,7 @@ export default function ProgrammeForm() {
   }, [user])
 
   const handleProgramChange = (e: SelectChangeEvent<Number>) => {
+    setProgrammeId(e.target.value as number)
     const programme = programmes.find((programme) => programme.id === e.target.value)
     if ( programme ) {
       setProgramme(programme)
@@ -57,11 +59,13 @@ export default function ProgrammeForm() {
     const userData = getDoc(userDataRef).then((doc) => {
       const data = doc.data()
       if ( data ) {
-        data.programmes ? data.programmes.push(newProgramme): data.programmes = [newProgramme]
+        const newProgrammeData = {id: newProgramme.id, name: newProgramme.name, workouts: newProgramme.workouts}
+        data.programmes ? data.programmes.push(newProgrammeData): data.programmes = [newProgrammeData]
         setDoc(userDataRef, data)
 
         setProgramme(newProgramme)
         setProgrammes([...programmes, newProgramme])
+        setNewProgrammeName('')
         setShowCalendar(true)
         return data
       }
@@ -84,7 +88,7 @@ export default function ProgrammeForm() {
           <Select
             labelId="programme-select-label"
             id="programme-select"
-            value={programme.id}
+            value={programmeId}
             label="Choose a program"
             onChange={handleProgramChange}
           >
