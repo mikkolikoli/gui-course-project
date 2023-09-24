@@ -3,9 +3,9 @@ import { Duration } from "./duration"
 export class Programme {
   id: number
   name: string
-  workouts: [{ workout: Workout, days: Day[] }]
+  workouts: [{ workout: Workout, times: WorkoutTime[] }] // times: [{ day: Day, time: Time }]
 
-  constructor (id: number, name: string, workouts: [{ workout: Workout, days: Day[] }]) {
+  constructor (id: number, name: string, workouts: [{ workout: Workout, times: WorkoutTime[] }]) {
     this.id = id
     this.name = name
     this.workouts = workouts

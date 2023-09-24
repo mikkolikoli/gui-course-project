@@ -11,7 +11,7 @@ import { AuthContext } from "@/src/authContext"
 import { useContext } from "react"
 
 import { User, UserConverter, Programme } from "@/src/firebase/firestore/objects"
-import { days } from "@/src/misc/days"
+import { dayList } from "@/src/misc/days"
 
 import { redirect } from "next/navigation"
 
@@ -41,7 +41,7 @@ export default async function Home() {
 
   const nextWorkout = activeProgramme ? 
     activeProgramme.workouts.find((workout) => 
-      workout.days.includes(days[new Date().getDay() === 0? 6 : new Date().getDay() - 1])
+      workout.days.includes(dayList[new Date().getDay() === 0? 6 : new Date().getDay() - 1])
     ) : 
     null
 

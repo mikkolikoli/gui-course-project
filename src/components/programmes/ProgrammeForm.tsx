@@ -48,7 +48,7 @@ export default function ProgrammeForm() {
   }
 
   const createNewProgram = () => {
-    const newProgramme = new Programme(Date.now(), newProgrammeName, [] as unknown as [{workout: Workout, days: Day[]}])
+    const newProgramme = new Programme(Date.now(), newProgrammeName, [] as unknown as [{workout: Workout, times: WorkoutTime[]}])
     // add new programme to users programmes
     if ( !user ) {
       setError(true)
