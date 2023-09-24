@@ -1,9 +1,7 @@
 interface props {
-    text: string
+  text: string;
 }
 
 export default function ErrorText({ text }: props) {
-    return (
-        <p>{text}</p>
-    )
+  return <p>{text}</p>;
 }

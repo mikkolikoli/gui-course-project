@@ -1,4 +1,4 @@
 type WorkoutTime = {
-  day: Day,
-  time: Time
-}
+  day: Day;
+  time: Time;
+};

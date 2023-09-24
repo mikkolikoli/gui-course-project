@@ -1,23 +1,25 @@
-"use client"
-import "../globals.css"
-import { AuthContext } from "@/src/authContext"
-import { redirect } from "next/navigation"
-import { useAuthState } from 'react-firebase-hooks/auth'
+"use client";
+import "../globals.css";
+import { AuthContext } from "@/src/authContext";
+import { redirect } from "next/navigation";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import Navbar from "@/src/components/navbar"
-import { Box } from "@mui/material"
-import { auth } from "@/src/firebase/firebaseConfig"
+import Navbar from "@/src/components/navbar";
+import { Box } from "@mui/material";
+import { auth } from "@/src/firebase/firebaseConfig";
 
-export default function MainLayout({children}:{children: React.ReactNode}) {
-
-  const [user] = useAuthState(auth)
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [user] = useAuthState(auth);
   if (!user) {
-    redirect("/login")
+    redirect("/login");
   }
-  
 
   return (
-    <AuthContext.Provider value={{user: user}}>
+    <AuthContext.Provider value={{ user: user }}>
       <Navbar />
 
       <Box
@@ -29,5 +31,5 @@ export default function MainLayout({children}:{children: React.ReactNode}) {
         {children}
       </Box>
     </AuthContext.Provider>
-  )
+  );
 }

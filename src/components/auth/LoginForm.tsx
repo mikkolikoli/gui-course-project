@@ -1,51 +1,48 @@
-import { useState, FormEvent } from "react"
+import { useState, FormEvent } from "react";
 
-import { Stack, TextField, Button } from "@mui/material"
-import signIn from "../../firebase/auth/signin"
+import { Stack, TextField, Button } from "@mui/material";
+import signIn from "../../firebase/auth/signin";
 
 interface Props {
-  onSuccess: () => void
+  onSuccess: () => void;
 }
 
 export default function LoginForm({ onSuccess }: Props) {
-  const [ email, setEmail ] = useState("")
-  const [ password, setPassword ] = useState("")
-  const [ errorColor, setErrorColor ] = useState(false)
-  const [ errorText, setErrorText ] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorColor, setErrorColor] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   const setError = (value: boolean) => {
-    if ( !value ) {
-      setErrorText("")
-      setErrorColor(false)
-      return
+    if (!value) {
+      setErrorText("");
+      setErrorColor(false);
+      return;
+    } else {
+      setErrorText("Incorrect email or password");
+      setErrorColor(true);
     }
-    else {
-      setErrorText("Incorrect email or password")
-      setErrorColor(true)
-    }
-  }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    
-    const {result, error} = await signIn(email, password)
-    if ( error ) {
-      setError(true)
+    const { result, error } = await signIn(email, password);
+    if (error) {
+      setError(true);
+    } else {
+      setError(false);
+      onSuccess();
     }
-    else {
-      setError(false)
-      onSuccess()
-    }
-  }
+  };
 
   return (
-    <Stack 
-      component="form" 
-      direction="column" 
+    <Stack
+      component="form"
+      direction="column"
       alignItems="center"
       justifyContent="center"
-      spacing={2} 
+      spacing={2}
       onSubmit={handleSubmit}
     >
       <TextField
@@ -53,23 +50,22 @@ export default function LoginForm({ onSuccess }: Props) {
         type="email"
         label="E-mail"
         value={email}
-        onChange={event => setEmail(event.target.value)}
-        helperText={errorText}  />
+        onChange={(event) => setEmail(event.target.value)}
+        helperText={errorText}
+      />
       <TextField
         error={errorColor}
         type="password"
         label="Password"
         value={password}
-        onChange={event => setPassword(event.target.value)}
+        onChange={(event) => setPassword(event.target.value)}
         autoComplete="current-password"
-        helperText={errorText} />
+        helperText={errorText}
+      />
 
-      <Button
-        variant="contained"
-        type="submit"
-      >
+      <Button variant="contained" type="submit">
         Login
       </Button>
     </Stack>
-  )
+  );
 }

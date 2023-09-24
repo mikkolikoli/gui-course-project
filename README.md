@@ -19,8 +19,8 @@ There will also be a possibility to have a HIIT timer that shows you the current
 - Typescript
 - Material UI
 - Firebase
-    - Firebase authentication
-    - Firestore
+  - Firebase authentication
+  - Firestore
 
 ## Demo
 

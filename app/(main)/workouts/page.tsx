@@ -1,5 +1,3 @@
 export default function Page() {
-    return(
-        <div>View workouts page</div>
-    )
+  return <div>View workouts page</div>;
 }
