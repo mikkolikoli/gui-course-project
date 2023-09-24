@@ -2,12 +2,19 @@
 import { Select, Stack, Typography, InputLabel, MenuItem, TextField, Button, SelectChangeEvent } from "@mui/material";
 import ProgrammeCalendar from "./ProgrammeCalendar";
 
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext, useEffect, createContext } from "react"
 import { AuthContext } from "@/src/authContext";
 
 import { Programme, ProgrammeConverter, User, UserConverter, Workout } from "@/src/firebase/firestore/objects";
 import { db } from "@/src/firebase/firebaseConfig"
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore"
+import AddWorkoutDialog from "./AddWorkoutDialog";
+
+
+export const AddWorkoutContext = createContext({} as {
+  workout: Workout,
+  times: WorkoutTime[]
+})
 
 export default function ProgrammeForm() {
   const [programme, setProgramme] = useState<Programme>(null as unknown as Programme)
@@ -16,6 +23,8 @@ export default function ProgrammeForm() {
   const [newProgrammeName, setNewProgrammeName] = useState('')
   const [showCalendar, setShowCalendar] = useState(false)
   const [error, setError] = useState(false)
+  const [popupShown, setPopupShown] = useState(false)
+  const [restDays, setRestDays] = useState<Day[]>([])
 
   const user = useContext(AuthContext).user
 
@@ -74,6 +83,12 @@ export default function ProgrammeForm() {
     })
   }
 
+  const showPopup = () => {
+    setPopupShown(true)
+  }
+
+  const addWorkout = () => {}
+
   if ( error ) {
     return (
       <div>An error has happened</div>
@@ -108,6 +123,10 @@ export default function ProgrammeForm() {
         <Button onClick={createNewProgram}>Create</Button>
       </Stack>
       {showCalendar && <ProgrammeCalendar programme={programme} />}
+      {showCalendar && <Button onClick={showPopup}>Add a workout to this programme</Button>}
+      <AddWorkoutContext.Provider value = {null as unknown as {workout: Workout, times: WorkoutTime[]}}>
+        <AddWorkoutDialog open={popupShown} handleClose={addWorkout} programmeId={programme.id} restDays={restDays} />
+      </AddWorkoutContext.Provider>
     </Stack>
   )
 }

@@ -16,8 +16,11 @@ import { Dialog,
          Grid, 
          FormControlLabel,
          Checkbox, 
-         TextField} from "@mui/material";
-import { useEffect, useState } from "react";
+         TextField,
+         DialogActions,
+         Button} from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { AddWorkoutContext } from "./ProgrammeForm";
 
 
 interface AddWorkoutDialogProps {
@@ -35,6 +38,8 @@ export default function AddWorkoutDialog({ open, handleClose, programmeId, restD
   const [ textBoxErrors, setTextBoxErrors ] = useState<boolean[]>([])
   const [ days, setDays ] = useState<Day[]>([])
   const [ times, setTimes ] = useState<WorkoutTime[]>([])
+
+  const newWorkout = useContext(AddWorkoutContext)
 
   // load workouts
   // useEffect(() => {}, [])
@@ -97,6 +102,10 @@ export default function AddWorkoutDialog({ open, handleClose, programmeId, restD
     setTextBoxErrors(newTextBoxErrors)
   }
 
+  const saveWorkout = () => {
+    handleClose()
+  }
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add a new workout</DialogTitle>
@@ -152,6 +161,10 @@ export default function AddWorkoutDialog({ open, handleClose, programmeId, restD
           </Stack>
         </Stack>
       </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={saveWorkout}>Save</Button>
+      </DialogActions>
     </Dialog>
   )
 }

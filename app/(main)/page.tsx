@@ -37,13 +37,9 @@ export default async function Home() {
     ) : 
     null
 
-  // next workout
-
-  const nextWorkout = activeProgramme ? 
-    activeProgramme.workouts.find((workout) => 
-      workout.days.includes(dayList[new Date().getDay() === 0? 6 : new Date().getDay() - 1])
-    ) : 
-    null
+  // workouts of the day
+  const today = dayList[new Date().getDay()]
+  const workouts = activeProgramme ? activeProgramme.workouts.filter((workout) => workout.times.filter((time) => time.day === today).length > 0) : []
 
   return (
     <Stack
@@ -54,7 +50,7 @@ export default async function Home() {
       mt={4}
     >
       <Calendar programme={activeProgramme} />
-      <NextWorkout workout={nextWorkout?.workout} />
+      <NextWorkout workouts={workouts} />
     </Stack>
   )
 }

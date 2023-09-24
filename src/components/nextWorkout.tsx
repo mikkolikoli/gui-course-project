@@ -1,17 +1,12 @@
-import { Stack, List, Tooltip } from "@mui/material"
+import { Stack, List, Tooltip, Typography } from "@mui/material"
 import { Workout } from "../firebase/firestore/objects"
 import Set from "./set"
 
 interface NextWorkoutProps {
-    workout: Workout | null | undefined
+    workouts: {workout: Workout, times: WorkoutTime[]}[]
 }
 
-export default function NextWorkout({ workout }: NextWorkoutProps) {
-    if ( !workout ) {
-        return (
-            <p>No workout</p>
-        )
-    }
+export default function NextWorkout({ workouts }: NextWorkoutProps) {
     return (
         <Stack
             border={`${1}px solid`}
@@ -23,14 +18,11 @@ export default function NextWorkout({ workout }: NextWorkoutProps) {
             ml={2}
             p={2}
         >
-            <h2>Next workout</h2>
-
-            <h3>{workout.name}</h3>
-
+            <Typography variant="h2" component="h1">Today&apos;s workouts</Typography>
             <List>
-                { workout.sets.map((set) => 
-                    <Set key={set.id} excerciseSet={set} />
-                )}
+                {workouts.map((workout, i) => (
+                    <Typography key={i}>workout.name</Typography>
+                ))}
             </List>
         </Stack>
     )
