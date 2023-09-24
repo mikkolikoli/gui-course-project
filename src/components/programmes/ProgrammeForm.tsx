@@ -47,11 +47,32 @@ export default function ProgrammeForm() {
     )
   }, [user])
 
+  const setNewActiveProgramme = ( programme: Programme ) => {
+    if ( !user ) {
+      setError(true)
+      return
+    }
+
+    const userDataRef = doc(db, "users", user.uid).withConverter(UserConverter)
+    const userData = getDoc(userDataRef).then((doc) => {
+      const data = doc.data()
+      if ( data ) {
+        data.activeProgramme = programme.id
+        setDoc(userDataRef, data)
+        return data
+      }
+      setError(true)
+      return null
+    })
+  }
+
   const handleProgramChange = (e: SelectChangeEvent<Number>) => {
     setProgrammeId(e.target.value as number)
     const programme = programmes.find((programme) => programme.id === e.target.value)
     if ( programme ) {
       setProgramme(programme)
+      setProgrammeId(programme.id)
+      setNewActiveProgramme(programme)
       setShowCalendar(true)
     }
   }
@@ -73,7 +94,9 @@ export default function ProgrammeForm() {
         setDoc(userDataRef, data)
 
         setProgramme(newProgramme)
+        setProgrammeId(newProgramme.id)
         setProgrammes([...programmes, newProgramme])
+        setNewActiveProgramme(newProgramme)
         setNewProgrammeName('')
         setShowCalendar(true)
         return data
@@ -124,9 +147,10 @@ export default function ProgrammeForm() {
       </Stack>
       {showCalendar && <ProgrammeCalendar programme={programme} />}
       {showCalendar && <Button onClick={showPopup}>Add a workout to this programme</Button>}
+      {showCalendar && 
       <AddWorkoutContext.Provider value = {null as unknown as {workout: Workout, times: WorkoutTime[]}}>
-        <AddWorkoutDialog open={popupShown} handleClose={addWorkout} programmeId={programme.id} restDays={restDays} />
-      </AddWorkoutContext.Provider>
+        <AddWorkoutDialog open={popupShown} handleClose={() => setPopupShown(false)} restDays={restDays} />
+      </AddWorkoutContext.Provider>}
     </Stack>
   )
 }

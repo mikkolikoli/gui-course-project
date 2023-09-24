@@ -26,11 +26,11 @@ import { AddWorkoutContext } from "./ProgrammeForm";
 interface AddWorkoutDialogProps {
   open: boolean,
   handleClose: () => void,
-  programmeId: number,
   restDays: Day[]
 }
-export default function AddWorkoutDialog({ open, handleClose, programmeId, restDays }: AddWorkoutDialogProps) {
+export default function AddWorkoutDialog({ open, handleClose, restDays }: AddWorkoutDialogProps) {
   const [ workout, setWorkout ] = useState<Workout>(null as unknown as Workout)
+  const [ workoutId, setWorkoutId ] = useState(0)
   const [ workouts, setWorkouts ] = useState<Workout[]>([])
   const [ programme, setProgramme ] = useState<Programme>(null as unknown as Programme)
   const [ checked, setChecked ] = useState([false, false, false, false, false, false, false])
@@ -120,7 +120,7 @@ export default function AddWorkoutDialog({ open, handleClose, programmeId, restD
               labelId="workout-select-label"
               id="workout-select"
               label="Workout"
-              value={workout.id}
+              value={workoutId}
               onChange={handleWorkoutChange}
             >
               {workouts.map((workout, i) => (
@@ -151,7 +151,7 @@ export default function AddWorkoutDialog({ open, handleClose, programmeId, restD
             {days.map((day, i) => (
               <Grid container spacing={2} key={i}>
                 <Grid item xs={2}>
-                  <Typography>{day}</Typography>
+                  <Typography>{day as string}</Typography>
                 </Grid>
                 <Grid item xs={10}>
                   <TextField error={textBoxErrors[i]} value={timeInputs[i]} onChange={(e) => handleTimeChange(e, i)} />

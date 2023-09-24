@@ -11,7 +11,7 @@ export default function Login() {
     const router = useRouter()
 
     const handleSuccess = () => {
-        toast.success("Successfully logged in", {duration: 1000})
+        toast.success("Successfully logged in")
         router.push("/")
     }
 
