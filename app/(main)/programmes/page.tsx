@@ -1,5 +1,7 @@
+import ProgrammeForm from "@/src/components/programmes/ProgrammeForm";
+
 export default function Page() {
     return(
-        <div>Programmes page</div>
+        <ProgrammeForm />
     )
 }

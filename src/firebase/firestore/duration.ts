@@ -21,5 +21,9 @@ export class Duration {
   getTotalSeconds () {
     return this.hours * 3600 + this.minutes * 60 + this.seconds
   }
+
+  toString () {
+    return this.hours !== 0? `${this.hours}:${this.minutes}:${this.seconds}`: this.minutes !== 0? `${this.minutes}:${this.seconds}`: `${this.seconds}s`
+  }
   
 }

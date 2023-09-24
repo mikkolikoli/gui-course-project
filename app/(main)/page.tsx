@@ -11,9 +11,9 @@ import { AuthContext } from "@/src/authContext"
 import { useContext } from "react"
 
 import { User, UserConverter, Programme } from "@/src/firebase/firestore/objects"
+import { dayList } from "@/src/misc/days"
 
-// dev stuff
-import { workout } from "@/src/dev/test" 
+import { redirect } from "next/navigation"
 
 export default async function Home() {
 
@@ -21,7 +21,7 @@ export default async function Home() {
   const user = useContext(AuthContext).user
 
   if ( !user ) {
-    return <div>loading...</div>
+    redirect("/login")
   }
   const userDataRef = doc(db, "users", user?.uid).withConverter(UserConverter)
   const userData = (await getDoc(userDataRef)).data()
@@ -37,13 +37,9 @@ export default async function Home() {
     ) : 
     null
 
-  // next workout
-
-  const nextWorkout = activeProgramme ? activeProgramme.workouts.find((workout) => {
-    const today = new Date()
-    const workoutDate = new Date(workout.dates.find((date) => date > today) || workout.dates[0])
-    return workoutDate > today
-  }) : null
+  // workouts of the day
+  const today = dayList[new Date().getDay()]
+  const workouts = activeProgramme ? activeProgramme.workouts.filter((workout) => workout.times.filter((time) => time.day === today).length > 0) : []
 
   return (
     <Stack
@@ -54,7 +50,7 @@ export default async function Home() {
       mt={4}
     >
       <Calendar programme={activeProgramme} />
-      <NextWorkout workout={nextWorkout?.workout} />
+      <NextWorkout workouts={workouts} />
     </Stack>
   )
 }
